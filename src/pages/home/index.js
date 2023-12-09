@@ -5,11 +5,11 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
   const navigate = useNavigate();
 
   const joinRoom = () => {
-    console.log("join room");
-    if (room !== "" && username !== "") {
-      console.log("join room", room, username);
-      socket.emit("join_room", { username, room });
+    if (room === "" && username === "") {
+      alert("Please enter username and room");
+      return;
     }
+    socket.emit("join_room", { username, room });
 
     // Redirect to /chat
     navigate("/chat", { replace: true });
@@ -18,7 +18,7 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h1>{`<>DevRooms</>`}</h1>
+        <h1>{`Group List`}</h1>
         <input
           className={styles.input}
           placeholder="Username..."
@@ -29,10 +29,10 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
           onChange={(e) => setRoom(e.target.value)}
         >
           <option>-- Select Room --</option>
-          <option value="javascript">JavaScript</option>
-          <option value="node">Node</option>
-          <option value="express">Express</option>
-          <option value="react">React</option>
+          <option value="group1">Group 1</option>
+          <option value="group2">Group 2</option>
+          <option value="group3">Group 3</option>
+          <option value="group4">Group 4</option>
         </select>
         <button className={`btn ${styles.btn}`} onClick={joinRoom}>
           Join Room
